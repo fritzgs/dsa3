@@ -22,6 +22,7 @@ class GraphTest {
 		reginalds = new Landmark("Reginald's Tower");
 		clocktow = new Landmark("Clock Tower");
 		
+		
 		g.addLandmark(johnrsq);
 		g.addLandmark(watcry);
 		g.addLandmark(reginalds);
@@ -36,7 +37,24 @@ class GraphTest {
 		regclockSt.add("Meagher's Quay");
 		regclockSt.add("Parade Quay");
 		g.addConnection(reginalds, clocktow, 10, regclockSt);
-
+		
+		ArrayList<String> watcryJRS = new ArrayList<>();
+		watcryJRS.add("Collbeck Street");
+		watcryJRS.add("Lady Lane");
+		watcryJRS.add("Bakehouse Lane");
+		watcryJRS.add("Broad Street");
+		g.addConnection(watcry, johnrsq, 7, watcryJRS);
+		
+		ArrayList<String> reg2JohnRSq = new ArrayList<>();
+		reg2JohnRSq.add("Parade Quay");
+		reg2JohnRSq.add("Henrietta Street");
+		watcryJRS.add("High Street");
+		watcryJRS.add("Blackfriars");
+		g.addConnection(reginalds, johnrsq, 7, reg2JohnRSq);
+		
+		ArrayList<String> johnrsq2clocktow = new ArrayList<>();
+		johnrsq2clocktow.add("Barronstrand Street");
+		g.addConnection(johnrsq, clocktow, 2, johnrsq2clocktow);
 	}
 	
 	@Test
@@ -45,5 +63,6 @@ class GraphTest {
 		assertEquals("Reginald's Tower", g.getList()[2].getName());
 		assertFalse(g.getList()[0].getName() == "Waterford Crystal");
 	}
+	
 
 }
