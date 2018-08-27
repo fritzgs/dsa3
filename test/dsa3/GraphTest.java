@@ -64,5 +64,13 @@ class GraphTest {
 		assertFalse(g.getList()[0].getName() == "Waterford Crystal");
 	}
 	
+	
+
+//	@Test
+//	void testShowAllLandmark()
+//	{
+//		setUp();
+//		g.getAllLandmarks();
+//	}
 
 }

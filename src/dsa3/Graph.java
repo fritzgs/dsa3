@@ -85,5 +85,60 @@ public class Graph {
 		return list;
 	}
 	
+	public void getAllLandmarks()
+	{
+		list[0].setWasChecked(true);
+		stack.push(0);
+		System.out.println(list[0]);
+
+		while(!stack.isEmpty())
+		{
+			int adj = getAdjacentLandmark(stack.peek());
+			if(adj == -1)
+			{
+				stack.pop();
+			}
+			else
+			{
+				list[adj].setWasChecked(true);
+				stack.push(adj);
+				System.out.println(list[adj]);
+			}
+		}
+		
+		//reset the flag to false
+		for(int i=0; i < currentSize; i++)
+		{
+			list[i].setWasChecked(false);
+		}
 	
+	}
+	
+	public void getShortestPath(String start, String dest)
+	{
+		
+	}
+	
+	public int getAdjacentLandmark(int t)
+	{
+		for(int i = 0; i < currentSize; i++)
+			if(matrix[t][i] != INFINITY && !list[i].getWasChecked())
+				return i;
+		
+		return -1;
+	}
+	
+	public ArrayList<Integer> getAdjacents(int t)
+	{
+		ArrayList<Integer> adj = new ArrayList<>();
+		for(int i = 0; i < currentSize; i++)
+		{
+			if(matrix[t][i] != INFINITY)
+			{
+				adj.add(i);
+			}
+		}
+		
+		return adj;
+	}
 }
