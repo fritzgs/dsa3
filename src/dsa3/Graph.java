@@ -1,6 +1,7 @@
 package dsa3;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Graph {
 	private final int MAX_LANDMARKS = 100;
@@ -10,7 +11,7 @@ public class Graph {
 	private int matrix[][];
 	private int currentSize;
 	private Stack<Integer> stack;
-	private ArrayList<Connection> connections;
+	public ArrayList<Connection> connections;
 	
 	private int currentLandmark;
 	
@@ -51,11 +52,24 @@ public class Graph {
 		}
 	
 		Connection connect = new Connection(landmark1, landmark2);
-		for(String s : streets)
+		Connection revConnect = new Connection(landmark2, landmark1);
+		
+		if(streets.size() > 0)
 		{
-			connect.addStreet(s);
+			for(String s : streets)
+			{
+				connect.addStreet(s);
+			}
+			
+			for(int j = streets.size()-1; j >= 0; j--)
+			{
+				revConnect.addStreet(streets.get(j));
+			}
+			
+			connections.add(connect);
+			connections.add(revConnect);
 		}
-		connections.add(connect);
+		
 		matrix[index1][index2] = distance;
 		matrix[index2][index1] = distance;
 	}
@@ -116,6 +130,131 @@ public class Graph {
 	
 	public void getShortestPath(String start, String dest)
 	{
+		ArrayList<Integer> unvisited = new ArrayList<>();
+		int startIndex = 0;
+		int endIndex = 0;
+		int prev[] = new int[currentSize];
+		for(int i=0; i < currentSize; i++)
+		{
+			unvisited.add(i);
+			prev[i] = -1;
+			if(list[i].getName().toLowerCase().equals(start.toLowerCase()))
+			{
+				startIndex = i;
+			}
+			if(list[i].getName().toLowerCase().equals(dest.toLowerCase()))
+			{
+				endIndex = i;
+			}
+
+		}
+		
+		list[startIndex].setValue(0);
+
+		
+		while(list[endIndex].getWasChecked() == false)
+		{
+			currentLandmark = getMin(unvisited);
+			ArrayList<Integer> adj = getAdjacents(currentLandmark);
+			for (int lm : adj)
+			{
+				if(list[lm].getValue() > list[currentLandmark].getValue() + matrix[currentLandmark][lm])
+				{
+					list[lm].setValue(list[currentLandmark].getValue() + matrix[currentLandmark][lm]);
+					prev[lm] = currentLandmark;
+				}
+			}
+			
+			list[currentLandmark].setWasChecked(true);
+			unvisited.remove(unvisited.indexOf(currentLandmark));
+		
+		}
+		
+		
+		
+
+		while(prev[endIndex] != -1)
+		{
+			stack.addSize();
+			stack.push(endIndex);
+			endIndex = prev[endIndex];
+		}
+
+		stack.push(startIndex);
+
+		
+		int[] path = new int[stack.size()];
+		for(int j =0; j < stack.size(); j++)
+		{
+			path[j] = stack.pop();
+			
+		}
+				
+		
+		boolean once = true;
+		int sum = 0;
+
+		for(int k=0; k < path.length;k++)
+		{
+			for(Connection c : connections)
+			{
+			
+				if(k+1 != path.length)
+				{
+					if(once)
+					{
+						System.out.println(list[path[k]].getName() + " to " + list[path[path.length-1]].getName());
+						System.out.println("via... \n");
+						once = false;
+					}
+						
+					if(list[path[k]].getName().equals(c.getLandmarkSrc().getName()) && list[path[k+1]].getName().equals(c.getLandmarkDest().getName()))
+					{
+						System.out.println(c.getStreets());
+						sum += matrix[path[k]][path[k+1]];
+					}
+				}
+				else if(k==0 && k == path.length-1)
+				{
+					if(once)
+					{
+						System.out.println(list[path[0]] + " to " + list[path[path.length-1]]);
+						System.out.println("\nYou are in already at the landmark!");
+						once =false;
+					}
+					
+				}
+			}
+			
+			
+		}
+		
+		if(sum != 0)
+			System.out.println("\nDuration of walk: " + sum + " minutes.");
+	}
+
+	
+	private int getMin(ArrayList<Integer> arr)
+	{
+		int min = 0;
+		ArrayList<Integer> values = new ArrayList<>();
+		for (int i : arr)
+		{
+			values.add(list[i].getValue());
+			
+		}
+		
+		Collections.sort(values);
+		
+		for (int j : arr)
+		{
+			if(values.get(0) == list[j].getValue())
+			{
+				min = j;
+			}
+		}
+		
+		return min;
 		
 	}
 	
@@ -140,5 +279,10 @@ public class Graph {
 		}
 		
 		return adj;
+	}
+	
+	public int[][] getmatrix()
+	{
+		return matrix;
 	}
 }

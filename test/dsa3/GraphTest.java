@@ -72,5 +72,13 @@ class GraphTest {
 //		setUp();
 //		g.getAllLandmarks();
 //	}
+	
+	@Test
+	void testShortestPath()
+	{
+		setUp();
+		g.getShortestPath("Waterford Crystal", "Clock Tower");
+	
+	}
 
 }
