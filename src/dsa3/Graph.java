@@ -192,8 +192,6 @@ public class Graph {
 				
 		
 		boolean once = true;
-		int sum = 0;
-
 		for(int k=0; k < path.length;k++)
 		{
 			for(Connection c : connections)
@@ -211,16 +209,15 @@ public class Graph {
 					if(list[path[k]].getName().equals(c.getLandmarkSrc().getName()) && list[path[k+1]].getName().equals(c.getLandmarkDest().getName()))
 					{
 						System.out.println(c.getStreets());
-						sum += matrix[path[k]][path[k+1]];
 					}
 				}
-				else if(k==0 && k == path.length-1)
+				if(matrix[path[0]][path[path.length-1]] == 0)
 				{
 					if(once)
 					{
 						System.out.println(list[path[0]] + " to " + list[path[path.length-1]]);
 						System.out.println("\nYou are in already at the landmark!");
-						once =false;
+						once = false;
 					}
 					
 				}
@@ -229,8 +226,7 @@ public class Graph {
 			
 		}
 		
-		if(sum != 0)
-			System.out.println("\nDuration of walk: " + sum + " minutes.");
+		System.out.println("\nDuration of walk: " + list[path[path.length-1]].getValue() + " minutes.");
 	}
 
 	

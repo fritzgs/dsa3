@@ -77,7 +77,7 @@ class GraphTest {
 	void testShortestPath()
 	{
 		setUp();
-		g.getShortestPath("Waterford Crystal", "Clock Tower");
+		g.getShortestPath("Waterford Crystal", "Waterford Crystal");
 	
 	}
 
