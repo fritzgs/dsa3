@@ -1,9 +1,8 @@
+package dsa3;
+
 /**
  * @author fritzgeraldsantos
  */
-
-package dsa3;
-
 public interface StackInterface<T>
 {
 	/**

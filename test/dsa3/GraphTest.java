@@ -6,6 +6,9 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * @author fritz
+ */
 class GraphTest {
 	
 	private Graph g;
@@ -78,7 +81,7 @@ class GraphTest {
 	{
 		setUp();
 		g.getShortestPath("Waterford Crystal", "Clock Tower");
-		
+		System.out.println("---------------");
 		g.getShortestPath("Waterford Crystal", "Waterford Crystal");
 
 	}

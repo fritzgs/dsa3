@@ -1,11 +1,14 @@
-/**
- * @author fritzgeraldsantos
- */
 package dsa3;
 
 
 import java.util.Arrays;
 import java.util.EmptyStackException;
+/**
+ * 
+ * @author fritz
+ *
+ * @param <T> - generic 
+ */
 
 public class Stack<T> implements StackInterface<T>{
 
