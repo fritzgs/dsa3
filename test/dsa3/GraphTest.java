@@ -56,7 +56,7 @@ class GraphTest {
 		johnrsq2clocktow.add("Barronstrand Street");
 		g.addConnection(johnrsq.getName(), clocktow.getName(), 2, johnrsq2clocktow);
 	}
-	
+
 	@Test
 	void testAddLandmark() {
 		setUp();
@@ -66,7 +66,7 @@ class GraphTest {
 	
 	
 
-	@Test
+//	@Test
 	void testShowAllLandmark()
 	{
 		setUp();
@@ -78,6 +78,7 @@ class GraphTest {
 	{
 		setUp();
 		g.getShortestPath("Waterford Crystal", "Clock Tower");
+		
 		g.getShortestPath("Waterford Crystal", "Waterford Crystal");
 
 	}

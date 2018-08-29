@@ -10,7 +10,6 @@ public class Graph {
 	private Landmark list[];
 	private int matrix[][];
 	private int currentSize;
-	private Stack<Integer> stack;
 	public ArrayList<Connection> connections;
 	
 	private int currentLandmark;
@@ -27,8 +26,6 @@ public class Graph {
 		for(int i = 0; i < MAX_LANDMARKS; i++)
 			for(int j = 0; j < MAX_LANDMARKS; j++)
 				matrix[i][j] = INFINITY;
-		
-		stack = new Stack<>();
 	}
 	
 	public void addConnection(String landmark1, String landmark2, int distance, ArrayList<String> streets)
@@ -126,6 +123,8 @@ public class Graph {
 	
 	public void getAllLandmarks()
 	{
+		Stack<Integer> stack = new Stack<>();
+
 		list[0].setWasChecked(true);
 		stack.push(0);
 		System.out.println(list[0]);
@@ -155,6 +154,7 @@ public class Graph {
 	
 	public void getShortestPath(String start, String dest)
 	{
+		Stack<Integer> stack = new Stack<>();
 		ArrayList<Integer> unvisited = new ArrayList<>();
 		int startIndex = 0;
 		int endIndex = 0;
@@ -261,6 +261,13 @@ public class Graph {
 		}
 		
 		System.out.println("\nDuration of walk: " + list[path[path.length-1]].getValue() + " minutes.");
+		
+		for(Landmark l : list)
+		{
+			if(l != null)
+				l.setWasChecked(false);
+		}
+	
 	}
 
 	
