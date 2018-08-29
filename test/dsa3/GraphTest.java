@@ -31,30 +31,30 @@ class GraphTest {
 		
 		ArrayList<String> regwatSt = new ArrayList<>();
 		regwatSt.add("The Mall");
-		g.addConnection(reginalds, watcry, 3, regwatSt);
+		g.addConnection(reginalds.getName(), watcry.getName(), 3, regwatSt);
 		
 		ArrayList<String> regclockSt = new ArrayList<>();
 		regclockSt.add("Meagher's Quay");
 		regclockSt.add("Parade Quay");
-		g.addConnection(reginalds, clocktow, 10, regclockSt);
+		g.addConnection(reginalds.getName(), clocktow.getName(), 10, regclockSt);
 		
 		ArrayList<String> watcryJRS = new ArrayList<>();
 		watcryJRS.add("Collbeck Street");
 		watcryJRS.add("Lady Lane");
 		watcryJRS.add("Bakehouse Lane");
 		watcryJRS.add("Broad Street");
-		g.addConnection(watcry, johnrsq, 7, watcryJRS);
+		g.addConnection(watcry.getName(), johnrsq.getName(), 7, watcryJRS);
 		
 		ArrayList<String> reg2JohnRSq = new ArrayList<>();
 		reg2JohnRSq.add("Parade Quay");
 		reg2JohnRSq.add("Henrietta Street");
 		watcryJRS.add("High Street");
 		watcryJRS.add("Blackfriars");
-		g.addConnection(reginalds, johnrsq, 7, reg2JohnRSq);
+		g.addConnection(reginalds.getName(), johnrsq.getName(), 7, reg2JohnRSq);
 		
 		ArrayList<String> johnrsq2clocktow = new ArrayList<>();
 		johnrsq2clocktow.add("Barronstrand Street");
-		g.addConnection(johnrsq, clocktow, 2, johnrsq2clocktow);
+		g.addConnection(johnrsq.getName(), clocktow.getName(), 2, johnrsq2clocktow);
 	}
 	
 	@Test
@@ -77,7 +77,7 @@ class GraphTest {
 	void testShortestPath()
 	{
 		setUp();
-		g.getShortestPath("Waterford Crystal", "Waterford Crystal");
+		g.getShortestPath("Waterford Crystal", "Clock Tower");
 	
 	}
 

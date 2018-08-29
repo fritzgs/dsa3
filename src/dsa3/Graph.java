@@ -31,53 +31,78 @@ public class Graph {
 		stack = new Stack<>();
 	}
 	
-	public void addConnection(Landmark landmark1, Landmark landmark2, int distance, ArrayList<String> streets)
+	public void addConnection(String landmark1, String landmark2, int distance, ArrayList<String> streets)
 	{
-		int index1 = 0;
-		int index2 = 0;
-		
-		for(int i = 0; i < list.length; i ++)
+		boolean land1 = false;
+		boolean land2 = false;
+		for(int j = 0; j < list.length;j++)
 		{
-			if(list[i] != null)
+			if(list[j] != null)
 			{
-				if(list[i].equals(landmark1))
+				if(list[j].getName().toLowerCase().equals(landmark1.toLowerCase()))
 				{
-					index1 = i;
+					land1 = true;
 				}
-				if(list[i].equals(landmark2))
+				if(list[j].getName().toLowerCase().equals(landmark2.toLowerCase()))
 				{
-					index2 = i;
+					land2 = true;
 				}
 			}
 		}
-	
-		Connection connect = new Connection(landmark1, landmark2);
-		Connection revConnect = new Connection(landmark2, landmark1);
 		
-		if(streets.size() > 0)
+		if(land1 == true && land2 == true)
 		{
-			for(String s : streets)
+			int index1 = 0;
+			int index2 = 0;
+			
+			for(int i = 0; i < list.length; i ++)
 			{
-				connect.addStreet(s);
+				if(list[i] != null)
+				{
+					if(list[i].getName().toLowerCase().equals(landmark1.toLowerCase()))
+					{
+						index1 = i;
+					}
+					if(list[i].getName().toLowerCase().equals(landmark2.toLowerCase()))
+					{
+						index2 = i;
+					}
+				}
+			}
+		
+			Connection connect = new Connection(list[index1], list[index2]);
+			Connection revConnect = new Connection(list[index2], list[index1]);
+			
+			if(streets.size() > 0)
+			{
+				for(String s : streets)
+				{
+					connect.addStreet(s);
+				}
+				
+				for(int j = streets.size()-1; j >= 0; j--)
+				{
+					revConnect.addStreet(streets.get(j));
+				}
+				
+				connections.add(connect);
+				connections.add(revConnect);
 			}
 			
-			for(int j = streets.size()-1; j >= 0; j--)
-			{
-				revConnect.addStreet(streets.get(j));
-			}
-			
-			connections.add(connect);
-			connections.add(revConnect);
+			matrix[index1][index2] = distance;
+			matrix[index2][index1] = distance;
+		}
+		else
+		{
+			System.out.println("One or two of the landmark names are incorrect - does not exist in list");
 		}
 		
-		matrix[index1][index2] = distance;
-		matrix[index2][index1] = distance;
 	}
 	
 	public void addLandmark(Landmark l)
 	{
 		list[currentSize++] = l;
-		addConnection(l, l, 0, new ArrayList<String>());
+		addConnection(l.getName(), l.getName(), 0, new ArrayList<String>());
 		
 	}
 
