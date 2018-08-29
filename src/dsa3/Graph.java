@@ -233,7 +233,16 @@ public class Graph {
 						
 					if(list[path[k]].getName().equals(c.getLandmarkSrc().getName()) && list[path[k+1]].getName().equals(c.getLandmarkDest().getName()))
 					{
-						System.out.println(c.getStreets());
+						int count = c.getStreets().size()-1;
+						for(String st : c.getStreets())
+						{
+							System.out.println(st);
+							
+							if(count > 0)
+							{
+								System.out.println("-->");
+							}
+						}
 					}
 				}
 				if(matrix[path[0]][path[path.length-1]] == 0)

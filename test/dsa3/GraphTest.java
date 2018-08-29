@@ -66,19 +66,20 @@ class GraphTest {
 	
 	
 
-//	@Test
-//	void testShowAllLandmark()
-//	{
-//		setUp();
-//		g.getAllLandmarks();
-//	}
+	@Test
+	void testShowAllLandmark()
+	{
+		setUp();
+		g.getAllLandmarks();
+	}
 	
 	@Test
 	void testShortestPath()
 	{
 		setUp();
 		g.getShortestPath("Waterford Crystal", "Clock Tower");
-	
+		g.getShortestPath("Waterford Crystal", "Waterford Crystal");
+
 	}
 
 }
