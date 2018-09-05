@@ -266,15 +266,9 @@ public class Graph {
 					//if the landmark names provided match the connection object in the loop -> print the streets.
 					if(list[path[k]].getName().equals(c.getLandmarkSrc().getName()) && list[path[k+1]].getName().equals(c.getLandmarkDest().getName()))
 					{
-						int count = c.getStreets().size()-1;
 						for(String st : c.getStreets())
 						{
 							System.out.println(st);
-							
-							if(count > 0)
-							{
-								System.out.println("-->");
-							}
 						}
 					}
 				}
@@ -301,7 +295,10 @@ public class Graph {
 		for(Landmark l : list)
 		{
 			if(l != null)
+			{
 				l.setWasChecked(false);
+				l.setValue(1000000);
+			}
 		}
 	
 	}

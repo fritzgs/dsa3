@@ -15,6 +15,7 @@ public class Main
 	public static void main(String[] args) {
 		Main main = new Main();
 		main.graph = new Graph();
+		main.demo();
 		main.menu();
 	}
 
@@ -35,6 +36,7 @@ public class Main
 		{
 			case "1":
 				optionOne();
+				sc.next();
 				menu();
 				break;
 			case "2":
@@ -69,11 +71,15 @@ public class Main
 	private void optionOne()
 	{
 		System.out.println("Find route from Landmark A to Landmark B.");
+		
 		System.out.println("Enter the name of Landmark A: ");
+		System.out.println();
 		String town1 = sc.next();
+		town1 += sc.nextLine();
+
 		System.out.println();
 		System.out.println("Enter the name of Lanmark B: ");
-		String town2 = sc.next();
+		String town2 = sc.nextLine();
 		
 		graph.getShortestPath(town1, town2);
 		System.out.println();
@@ -108,4 +114,88 @@ public class Main
 		graph.addConnection(landmark1, landmark2, dist, streets);
 	}
 	
+	
+	private void demo()
+	{
+		Landmark[] landmarks = {
+		new Landmark("Waterford Crystal"),					//0
+		new Landmark("Medieval Museum"),					//1
+		new Landmark("Reginald's Tower"),					//2
+		new Landmark("Christ Church"),						//3
+		new Landmark("Thomas Francis Meagher Statue"),		//4
+		new Landmark("Apple Market"),						//5
+		new Landmark("John Condon Memorial"),				//6
+		new Landmark("Waterford Museum of Treasures"),		//7
+		new Landmark("Clock Tower")							//8
+		};
+		
+		for(Landmark l : landmarks)
+		{
+			graph.addLandmark(l);
+		}
+		
+		ArrayList<String> streets = new ArrayList<>();
+		streets.add("The Mall");
+		graph.addConnection(landmarks[0].getName(), landmarks[2].getName(), 2, streets);
+		streets.clear();
+		
+		streets.add("Parnell Street");
+		streets.add("John's Avenue");
+		graph.addConnection(landmarks[0].getName(), landmarks[5].getName(), 6, streets);
+		streets.clear();
+		
+		graph.addConnection(landmarks[0].getName(), landmarks[7].getName(), 1, streets);
+		
+		streets.add("The Mall");
+		graph.addConnection(landmarks[0].getName(), landmarks[4].getName(), 2, streets);
+		streets.clear();
+		
+		graph.addConnection(landmarks[2].getName(), landmarks[4].getName(), 0, streets);
+		
+		streets.add("Bailey's New Street");
+		streets.add("Cathedral Square");
+		graph.addConnection(landmarks[2].getName(), landmarks[6].getName(), 2, streets);
+		streets.clear();		
+		
+		streets.add("The Mall");
+		graph.addConnection(landmarks[2].getName(), landmarks[7].getName(), 3, streets);
+		streets.clear();
+		
+		streets.add("The Quay");
+		graph.addConnection(landmarks[2].getName(), landmarks[8].getName(), 6, streets);
+		streets.clear();
+		
+		streets.add("Cathedral Square");
+		graph.addConnection(landmarks[1].getName(), landmarks[6].getName(), 1, streets);
+		streets.clear();
+		
+		graph.addConnection(landmarks[1].getName(), landmarks[7].getName(), 1, streets);
+		
+		streets.add("Cathedral Square");
+		streets.add("Collbeck Street");
+		streets.add("Parnell Street");
+		graph.addConnection(landmarks[2].getName(), landmarks[7].getName(), 3, streets);
+		streets.clear();
+		
+		graph.addConnection(landmarks[3].getName(), landmarks[6].getName(), 0, streets);
+
+		streets.add("Henrietta Street");
+		streets.add("The Quay");
+		graph.addConnection(landmarks[3].getName(), landmarks[8].getName(), 6, streets);
+		streets.clear();
+		
+		
+		streets.add("Michael Street");
+		streets.add("Broad Street");
+		streets.add("Barrondstrand Street");
+		graph.addConnection(landmarks[5].getName(), landmarks[8].getName(), 5, streets);
+		streets.clear();
+		
+		streets.add("Parnell Street");
+		streets.add("John's Avenue");
+		graph.addConnection(landmarks[5].getName(), landmarks[7].getName(), 5, streets);
+		streets.clear();
+		
+		
+	}
 }
